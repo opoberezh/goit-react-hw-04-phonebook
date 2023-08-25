@@ -9,17 +9,29 @@ import initialContacts from "./contactsList.json";
 import { Layout } from "./Layout/Layout";
 import { GlobalStyle } from "./GlobalStyled";
 import { WrapperContainer } from "./App.styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+
+const localStorageKey = 'contacts';
 
 export const App = () => {
- const [contacts, setContacts] = useState (initialContacts);
-const [contactFilter, setContactFilter] = useState('')
-};
+ const [contacts, setContacts] = useState (() => {
+  const savedContacts = localStorage.getItem(localStorageKey);
+  if(savedContacts !== null){
+    return JSON.parse(savedContacts);
+  }
+  return initialContacts;
+ });
+const [contactFilter, setContactFilter] = useState('');
 
 
-const resetChanges = () =>{
-  setContacts(initialContacts);
-}
+
+useEffect(() => {
+  localStorage.setItem(localStorageKey, JSON.stringify(contacts));
+}, [contacts])
+
+
+
 
 const addContact = newContact => {
   const existingContact = contacts.find(
@@ -38,15 +50,29 @@ const addContact = newContact => {
     number: newContact.number,
   };
 
-  setContacts(prevState => ({
-    ...prevState, 
-    newItem
-  }));
+  setContacts(prevState => [...prevState, newItem]);
+};
+
+const resetChanges = () =>{
+  setContacts(initialContacts);
+ 
+};
+
+
+const changeContactFilter = newFilter => {
+  setContactFilter(newFilter);
 };
  
-  const visibleContactItems = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(contactFilter.toLowerCase())
-  );
+const visibleContactItems = contacts.filter(contact =>
+contact.name.toLowerCase().includes(contactFilter.toLowerCase())
+);
+
+  
+const deleteContact = contactId => {
+  console.log(contactId)
+setContacts(prevState => prevState.filter(contact => contact.id !== contactId),
+);
+};
 
   return (
     <Layout>
@@ -55,8 +81,8 @@ const addContact = newContact => {
       <ContactList
         contacts={visibleContactItems}
         contactFilter={contactFilter}
-        onChangeFilter={this.changeContactFilter}
-        onDeleteContact={this.deleteContact}
+        onChangeFilter={changeContactFilter}
+        onDeleteContact={deleteContact}
         onReset={resetChanges}
       />
       <ToastContainer />
@@ -64,3 +90,4 @@ const addContact = newContact => {
       <GlobalStyle/>
     </Layout>
   );
+};

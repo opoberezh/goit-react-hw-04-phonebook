@@ -1,42 +1,42 @@
-import { Component } from "react";
-import { nanoid } from "nanoid";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { Component } from "react";
+// import { nanoid } from "nanoid";
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
-import { ContactForm } from "./ContactForm/ContactForm";
-import { ContactList } from "./ContactList/ContactList";
-import initialContacts from "./contactsList.json";
-import { Layout } from "./Layout/Layout";
-import { GlobalStyle } from "./GlobalStyled";
-import { WrapperContainer } from "./App.styled";
+// import { ContactForm } from "./ContactForm/ContactForm";
+// import { ContactList } from "./ContactList/ContactList";
+// import initialContacts from "./contactsList.json";
+// import { Layout } from "./Layout/Layout";
+// import { GlobalStyle } from "./GlobalStyled";
+// import { WrapperContainer } from "./App.styled";
 
-export class App extends Component {
+// export class App extends Component {
   // state ={
   //   contacts: initialContacts,
   //   initialContacts: initialContacts,
   //   contactFilter: '',
   // };
 
-componentDidMount(){
-console.log('componentDidMount');
-const savedContacts = localStorage.getItem('contacts');
-if(savedContacts !== null){
- this.setState({
-  contacts: JSON.parse(savedContacts)
- });
+// componentDidMount(){
+// console.log('componentDidMount');
+// const savedContacts = localStorage.getItem('contacts');
+// if(savedContacts !== null){
+//  this.setState({
+//   contacts: JSON.parse(savedContacts)
+//  });
  
-}
+// }
   
-};
+// };
 
-componentDidUpdate(prevProps, prevState){
-  console.log('this.state:', this.state);
-  console.log('prevState:', prevState)
-  if (this.state.contacts !== prevState.contacts){
-  console.log(`the contacts are updated`);
-  localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-  }
-};
+// componentDidUpdate(prevProps, prevState){
+//   console.log('this.state:', this.state);
+//   console.log('prevState:', prevState)
+//   if (this.state.contacts !== prevState.contacts){
+//   console.log(`the contacts are updated`);
+//   localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+//   }
+// };
 
 // resetChanges = () =>{
 
@@ -71,17 +71,17 @@ componentDidUpdate(prevProps, prevState){
   //   }));
   // };
 
-  changeContactFilter = newFilter => {
-    this.setState({
-      contactFilter: newFilter,
-    });
-  };
+  // changeContactFilter = newFilter => {
+  //   this.setState({
+  //     contactFilter: newFilter,
+  //   });
+  // };
 
-  deleteContact = contactId => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
-    }));
-  };
+  // deleteContact = contactId => {
+  //   this.setState(prevState => ({
+  //     contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+  //   }));
+  // };
 
 //   render() {
 //     const { contacts, contactFilter } = this.state;
